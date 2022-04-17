@@ -7,7 +7,7 @@ import discord
 
 default_intents = discord.Intents.default()
 default_intents.members = True
-vengabot = commands.Bot(command_prefix="!v", intents=default_intents)
+vengabot = commands.Bot(command_prefix='!', intents=default_intents)
 
 
 @vengabot.event
@@ -15,10 +15,10 @@ async def on_ready():
     print("VENGABOT prêt à faire des dingueries")
 
 
-@vengabot.command(name="del")
-async def delete(context, num: int):
+@vengabot.command(name='del')
+async def delete(ctx):
     print("oui")
-    messages = await context.channel.history(limit=num + 1).flatten()
+    messages = await ctx.channel.history(limit=num + 1).flatten()
     for each in messages:
         await each.delete()
 
