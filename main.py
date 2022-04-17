@@ -13,4 +13,4 @@ async def on_message(message):
     if "vengabot" in message.content.lower():
         await message.channel.send("".join(random.sample(phrases, 1)))
 
-client.run("OTY0OTA2MjAyNDQ0MjMwNjg3.Ylrc7Q.rgQ1KUbhz3N6-kmKF0AtWAWQQcg")
+client.run("TOKEN SECRET")
