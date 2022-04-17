@@ -18,4 +18,12 @@ async def on_message(message):
         await message.channel.send("".join(random.sample(phrases, 1)))
 
 
+@client.event
+async def on_typing(channel, user, when):
+    nom = str(user)
+    for i in range(5):
+        nom = nom[:-1]
+    print(nom)
+    await channel.send("arrete d'écrire mon reuf " + nom)
+
 client.run(config.key())
