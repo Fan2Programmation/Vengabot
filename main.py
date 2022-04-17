@@ -33,5 +33,3 @@ async def on_typing(channel, user, when):
     await channel.send("arrete d'écrire mon reuf " + nom)
 
 vengabot.run(config.key())
-
-#test pour tout repush
