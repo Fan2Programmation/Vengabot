@@ -1,16 +1,24 @@
-import discord
+from discord.ext import commands
 import random
 import config
 
-client = discord.Client()
+vengabot = commands.Bot(command_prefix="v")
 
 
-@client.event
+@vengabot.event
 async def on_ready():
     print("VENGABOT prêt à faire des dingueries")
 
 
-@client.event
+@vengabot.command(name='Del')
+async def delete(context, num: int):
+    messages = await context.channel.history(limit=num + 1).flatten()
+
+    for each in messages:
+        await each.delete()
+
+
+@vengabot.event
 async def on_message(message):
     phrases = ["oh le zinc ca va en maude robot ou quoi",
                "keskia couzin pk tu m @"]
@@ -18,11 +26,11 @@ async def on_message(message):
         await message.channel.send("".join(random.sample(phrases, 1)))
 
 
-@client.event
+@vengabot.event
 async def on_typing(channel, user, when):
     nom = str(user)[:-5]
     await channel.send("arrete d'écrire mon reuf " + nom)
 
-client.run(config.key())
+vengabot.run(config.key())
 
 #test pour tout repush
