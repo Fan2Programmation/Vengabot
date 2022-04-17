@@ -1,7 +1,8 @@
+import numpy
+import discord
 from discord.ext import commands
 import random
 import config
-import discord
 
 
 default_intents = discord.Intents.default()
