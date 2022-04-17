@@ -1,6 +1,7 @@
 from discord.ext import commands
 import random
 import config
+import numpy
 
 vengabot = commands.Bot(command_prefix="v")
 
