@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import pynacl
 import config
 
 bot = commands.Bot(command_prefix='?')
