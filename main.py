@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import pynacl
+import random
 import config
 
 bot = commands.Bot(command_prefix='?')
@@ -9,9 +9,14 @@ bot = commands.Bot(command_prefix='?')
 async def on_ready():
     print("c'est bon panique pas")
 
-@bot.command(name='re')
-async def prog(ctx):
-    await ctx.channel.send('on réessaie')
+@bot.event
+async def on_message(message):
+  insultes = [
+    "keskia couzin pourquoi tu m'@",
+    "oh le zinc ca va en maude robot ou quoi"
+  ]
+  if 'vengabot' in message.content.lower():
+    await message.channel.send(random.choice(insultes))
 
 @bot.command(name='pet')
 async def fart(ctx):
