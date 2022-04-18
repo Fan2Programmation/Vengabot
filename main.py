@@ -10,13 +10,14 @@ async def on_ready():
     print("c'est bon panique pas")
 
 @bot.event
-async def on_message(message):
-  insultes = [
-    "keskia couzin pourquoi tu m'@",
-    "oh le zinc ca va en maude robot ou quoi"
-  ]
-  if 'vengabot' in message.content.lower():
-    await message.channel.send(random.choice(insultes))
+async def on_message(ctx):
+    insultes = [
+        "keskia couzin pourquoi tu m'@",
+        "oh le zinc ca va en maude robot ou quoi"
+    ]
+    if 'vengabot' in ctx.content.lower():
+        await ctx.channel.send(random.choice(insultes))
+    await bot.process_commands(ctx)
 
 @bot.command(name='pet')
 async def fart(ctx):
