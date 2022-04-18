@@ -3,13 +3,13 @@ from discord.ext import commands
 import random
 import config
 
-bot = commands.Bot(command_prefix='?')
+vengabot = commands.Bot(command_prefix='?')
 
-@bot.event
+@vengabot.event
 async def on_ready():
     print("c'est bon panique pas")
 
-@bot.event
+@vengabot.event
 async def on_message(ctx):
     insultes = [
         "keskia couzin pourquoi tu m'@",
@@ -17,13 +17,25 @@ async def on_message(ctx):
     ]
     if 'vengabot' in ctx.content.lower():
         await ctx.channel.send(random.choice(insultes))
-    await bot.process_commands(ctx)
+    await vengabot.process_commands(ctx)
 
-@bot.command(name='pet')
+@vengabot.command(name='pet')
 async def fart(ctx):
     if ctx.author.voice is None:
         await ctx.channel.send("T'es pas dans un vocal mon con")
     else:
         await ctx.author.voice.channel.connect()
 
-bot.run(config.key())
+@vengabot.event
+async def on_typing(channel, user, when):
+    nom = str(user)[:-5]
+    await channel.send("arrete d'écrire mon reuf " + nom)
+
+@vengabot.command(name='del')
+async def delete(ctx, num: int):
+    messages = await ctx.channel.history(limit=num + 1).flatten()
+    for each in messages:
+        await each.delete()
+
+vengabot.run(config.key())
+# plus qu'a avancer sur le pet, del fonctionne à merveille
