@@ -3,7 +3,6 @@ from discord.ext import commands
 import random
 import config
 from insulte import *
-import youtube_dl
 import os
 from discord import FFmpegPCMAudio
 
@@ -51,21 +50,27 @@ async def delete(ctx, num: int):
 
 @vengabot.command(name='musicYT')
 async def musicYT(ctx, url: str):
+
     if (ctx.author.voice):
         channel = ctx.message.author.voice.channel
         voice = await channel.connect()
+
+        # enlever l'ancien song.mp3
+        for file in os.listdir("./"):
+            if file.endswith(".mp3"):
+                os.remove(file)
 
         ydl_opts = {
             'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
+                'preferredcodec': 'mp3'
+            }]
         }
 
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
+
         for file in os.listdir("./"):
             if file.endswith(".mp3"):
                 os.rename(file, "song.mp3")
@@ -76,14 +81,15 @@ async def musicYT(ctx, url: str):
         await ctx.channel.send("T'es pas dans un vocal mon con")
 
 
-# @vengabot.command(name='stop')
-# async def stop(ctx):
-#     test = ctx.bot.is_connected
-#     print(test)
+@vengabot.command(name='stop')
+async def stop(ctx):
+    guild = ctx.message.guild.voice_client
+    await guild.disconnect()
 
 
 @vengabot.command(name='insulte')
 async def insulte(ctx):
     await ctx.channel.send(getInsulte())
 vengabot.run(config.key())
+
 # plus qu'a avancer sur le pet, del fonctionne à merveille
